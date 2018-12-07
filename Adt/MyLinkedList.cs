@@ -145,12 +145,38 @@ namespace Adt
 
         public void Swap(int i)
         {
-            throw new NotImplementedException();
+            Node targetNode, postNode, oldNext, oldPrev, preNode;
+
+            targetNode = NodeAt(i);
+            postNode = NodeAt(i + 1);
+            preNode = NodeAt(i - 1);
+
+            oldNext = postNode.Next;
+            oldPrev = targetNode.Prev;
+
+            targetNode.Next = oldNext;
+            targetNode.Prev = postNode;
+
+            postNode.Next = targetNode;
+            postNode.Prev = oldPrev;
+
+            preNode.Next = postNode;
+
         }
 
         public String FremTilbage()
         {
-            throw new NotImplementedException();
+            MyLinkedList fremTilbage = new MyLinkedList();
+
+            for (int i = 0; i < Count; i++) {
+                fremTilbage.Insert(ItemAt(i));
+            }
+
+            for (int i = Count-2; i >= 0; i--) {
+                fremTilbage.Insert(ItemAt(i));
+            }
+
+            return fremTilbage.ToString();
         }
 
         private Node NodeAt(int targetIndex)
