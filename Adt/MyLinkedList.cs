@@ -9,6 +9,7 @@ namespace Adt
     public class MyLinkedList
     {
         private Node Head = null;
+        private Node Tail = null;
         public int Count { get; private set; }
 
         public MyLinkedList()
@@ -24,14 +25,15 @@ namespace Adt
             // Is it the first element)?
             if(Head == null) {
                 Head = newNode;
+                Tail = newNode;
                 Count += 1;
                 return;
             }
 
-            // Find the end of the list
-            Node last = FindLast();
-
-            last.Next = newNode;
+            // Set new node to be next
+            Tail.Next = newNode;
+            newNode.Prev = Tail;
+            Tail = newNode;
             Count++;
         }
 
@@ -45,35 +47,49 @@ namespace Adt
 
         public void Insert(Object data, int index)
         {
-            if(index != 0) {
-                Node prevNode, targetPointer, newNode;
+            if(index > 0 && index < Count) {
+                Node oldNode, preNode, newNode;
                 newNode = new Node(data);
-                prevNode = NodeAt(index);
-                targetPointer = NodeAt(index - 1);
-                newNode.Next = prevNode;
-                targetPointer.Next = newNode;
+
+                oldNode = NodeAt(index);
+                preNode = NodeAt(index - 1);
+
+                preNode.Next = newNode;
+                newNode.Prev = preNode;
+
+                newNode.Next = oldNode;
+                oldNode.Prev = newNode;
+
                 Count++;
-            } else {
+            } else if (index == 0) {
                 Insert(data);
+            } else if (index >= Count) {
+                Append(data);
             }
         }
 
         public void Delete()
         {
             Head = Head.Next;
+            Head.Prev = null;
             Count--;
         }
 
         public void Delete(int index)
         {
-            if(index != 0) {
+            if(index != 0 && index < Count-1) {
                 Node preNode, postNode;
                 preNode = NodeAt(index-1);
                 postNode = NodeAt(index + 1);
                 preNode.Next = postNode;
+                postNode.Prev = preNode;
                 Count--;
-            } else {
+            } else if (index <= 0) {
                 Delete();
+            } else if (index >= Count-1) {
+                Tail = Tail.Prev;
+                Tail.Next = null;
+                Count--;
             }
         }
 
@@ -112,9 +128,18 @@ namespace Adt
             return place;
         }
 
+        public void Reverse()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Swap(int i)
+        {
+            throw new NotImplementedException();
+        }
+
         private Node NodeAt(int targetIndex)
         {
-
             int index = 0;
             Node place = Head;
             while (index < targetIndex) {
