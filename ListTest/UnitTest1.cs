@@ -104,7 +104,7 @@ namespace ListTest
             l1.Append(c2);
             l1.Append(c3);
             l1.Reverse();
-            Assert.AreEqual(2, l1.Count);
+            Assert.AreEqual(3, l1.Count);
             Assert.AreEqual("3 Cristian Nielsen 20\n2 Bjørn Borg 30\n1 Anders And 15\n", l1.ToString());
         }
         [TestMethod]
@@ -116,7 +116,7 @@ namespace ListTest
             l1.Append(c1);
             l1.Append(c2);
             l1.Swap(1);
-            Assert.AreEqual(2, l1.Count);
+            Assert.AreEqual(3, l1.Count);
             Assert.AreEqual("3 Cristian Nielsen 20\n2 Bjørn Borg 30\n1 Anders And 15\n", l1.ToString());
         }
         [TestMethod]
@@ -127,9 +127,9 @@ namespace ListTest
             l1.Append(c3);
             l1.Append(c2);
             l1.Append(c1);
-            l1.Reverse();
-            Assert.AreEqual(2, l1.Count);
-            Assert.AreEqual("3 Cristian Nielsen 20\n2 Bjørn Borg 30\n1 Anders And 15\n2 Bjørn Borg 30\n3 Cristian Nielsen 20\n", l1.ToString());
+
+            Assert.AreEqual(3, l1.Count);
+            Assert.AreEqual("3 Cristian Nielsen 20\n2 Bjørn Borg 30\n1 Anders And 15\n2 Bjørn Borg 30\n3 Cristian Nielsen 20\n", l1.FremTilbage());
         }
 
     }

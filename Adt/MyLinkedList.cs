@@ -130,10 +130,25 @@ namespace Adt
 
         public void Reverse()
         {
-            throw new NotImplementedException();
+            Node place = Head;
+            Node oldNext, oldHead;
+            while(place != null) {
+                oldNext = place.Next;
+                place.Next = place.Prev;
+                place.Prev = oldNext;
+                place = oldNext;
+            }
+            oldHead = Head;
+            Head = Tail;
+            Tail = oldHead;
         }
 
         public void Swap(int i)
+        {
+            throw new NotImplementedException();
+        }
+
+        public String FremTilbage()
         {
             throw new NotImplementedException();
         }
